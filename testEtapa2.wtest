@@ -1,0 +1,41 @@
+import Paciente.*
+import Aparatos.*
+
+
+describe "test Etapa 2" {
+
+    const leonardo = new Paciente(edad=40, nivelFortalezaMuscular=20, nivelDolor=10)
+    const milena = new Paciente(edad=3, nivelFortalezaMuscular=50, nivelDolor=30)
+    const magneto1 = new Magneto()
+    const bici1 = new Bicicleta()
+    const miniTramp1 = new Minitramp()
+    const biciLeonardo = new Bicicleta()
+    const rutinaLeonardo = [biciLeonardo, new Minitramp(), biciLeonardo, new Magneto()]
+    const rutinaMilena = [new Magneto(), new Bicicleta()]
+
+method initialize() {
+    leonardo.asignarRutina(rutinaLeonardo)
+    milena.asignarRutina(rutinaMilena)
+}
+
+test "leonardo puede realizar su rutina" {
+    assert.that(leonardo.puedeRealizarRutina())
+}
+test "leonardo hace la rutina y su nivel de dolor baja a 1.8"{
+    leonardo.realizarRutina()
+    assert.equals(1.8, leonardo.conocerNivelDolor())
+}
+
+test "leonardo hacer la rutina y su fortaleza sube a 30"{
+    leonardo.realizarRutina()
+    assert.equals(30, leonardo.conocerNivelFortalezaMuscular())
+}
+
+test "milena no puede realizar la rutina, arroja excepcion"{
+    assert.throwsException({milena.realizarRutina()})
+}
+
+test "milena no puede realizar la rutina"{
+    assert.notThat(milena.puedeRealizarRutina())
+}
+}
